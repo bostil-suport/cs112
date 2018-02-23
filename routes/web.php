@@ -15,3 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', 'TestsController@test');
+
+Route::resource('/project', 'ProjectController');
