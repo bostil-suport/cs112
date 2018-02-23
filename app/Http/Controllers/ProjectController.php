@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -14,7 +15,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+
+//        $news = DB::table('projects')->get();
+        $news = Project::orderBy('id')->get();;
+
+
+
+        return view('project.index',  compact('news'));
     }
 
     /**
@@ -24,7 +31,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('project.create');
     }
 
     /**
@@ -35,7 +42,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request['title'];
+        $description = $request['description'];
+
+        $project = new Project();
+        $project->title = $title;
+        $project->description = $description;
+
+        $project->save();
+
+        return redirect('/project');
+
+
+
     }
 
     /**
@@ -46,7 +65,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('project.show',  compact('project'));
     }
 
     /**
@@ -57,7 +76,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('project.edit',  compact('project'));
     }
 
     /**
@@ -69,7 +88,18 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+
+        $title = $request['title'];
+        $description = $request['description'];
+
+
+        $projectOne = Project::find($project['id']);
+        $projectOne->title = $title;
+        $projectOne->description = $description;
+
+        $projectOne->save();
+
+        return redirect('/project');
     }
 
     /**
