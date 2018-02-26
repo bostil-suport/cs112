@@ -16,4 +16,11 @@ Route::get('/', function () {
 });
 Route::get('/test', 'TestsController@test');
 
+
+Route::get('/project/{id}/edit', 'ProjectController@edit')->middleware('auth');
 Route::resource('/project', 'ProjectController');
+Route::get('/project/create', 'ProjectController@create')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

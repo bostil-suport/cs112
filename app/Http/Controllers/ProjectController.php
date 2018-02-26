@@ -13,11 +13,17 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
+
     public function index()
     {
 
 //        $news = DB::table('projects')->get();
-        $news = Project::orderBy('id')->get();;
+        $news = Project::orderBy('id')->get();
 
 
 
@@ -31,6 +37,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        //нельзя незалогиненному
         return view('project.create');
     }
 
@@ -42,6 +49,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        //нельзя незалогиненному
+
         $title = $request['title'];
         $description = $request['description'];
 
@@ -74,8 +83,16 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
+        //нельзя незалогиненному
+//        echo $id;
+//        print_r($project);
+        $project = Project::where('id', $id)->first();
+
+
+        //получить данные из бд по id
+
         return view('project.edit',  compact('project'));
     }
 
@@ -88,6 +105,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        //нельзя незалогиненному
 
         $title = $request['title'];
         $description = $request['description'];
@@ -110,6 +128,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        //нельзя незалогиненному
+
     }
 }
