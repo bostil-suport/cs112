@@ -1,12 +1,5 @@
 !!!!!! Here some possible strings !!!!!
 
-wmann@example.net 1
-darien72@example.org 2
-kasandra35@example.org 3
-dchamplin@example.net 4
-mireya80@example.com 5
-
-secret
 --------------------------------------------
 $2y$10$DJ7G6eG6ZQZc0sKJNsaAQeAztBTeRQbLPQbB8CrJnXL7wS
 hash for '123456'
