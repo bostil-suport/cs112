@@ -70,7 +70,9 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        <a class="nav-link" href="{{ url('/project') }}">Projects</a>
                     @else
+                        <a class="nav-link" href="{{ url('/project') }}">Projects</a>
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProjectController extends Controller
 {
@@ -14,17 +16,15 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-//    public function __construct()
-//    {
-//        $this->middleware('auth');
-//    }
 
     public function index()
     {
 
-//        $news = DB::table('projects')->get();
         $news = Project::orderBy('id')->get();
-
+        echo '<pre>';
+        $userid = Auth::id();
+        print_r($userid);
+        echo '</pre>';
 
 
         return view('project.index',  compact('news'));
@@ -38,7 +38,11 @@ class ProjectController extends Controller
     public function create()
     {
         //нельзя незалогиненному
-        return view('project.create');
+        echo '<pre>';
+        $userid = Auth::id();
+        print_r($userid);
+        echo '</pre>';
+        return view('project.create', compact('userid'));
     }
 
     /**
@@ -53,14 +57,25 @@ class ProjectController extends Controller
 
         $title = $request['title'];
         $description = $request['description'];
+        $userid = $request['userid'];
 
         $project = new Project();
         $project->title = $title;
         $project->description = $description;
+        $project->user_id = $userid;
+
+        if (Auth::id() == $project->user_id) {
+            $project->save();
+            return redirect('/project/mylist');
+        } else {
+            $request->session()->flash('add_not_available', "You can add only your projects!");
+            return redirect('/project/mylist');
+        }
+
 
         $project->save();
 
-        return redirect('/project');
+        return redirect('/project/mylist');
 
 
 
@@ -88,7 +103,9 @@ class ProjectController extends Controller
         //нельзя незалогиненному
 //        echo $id;
 //        print_r($project);
-        $project = Project::where('id', $id)->first();
+
+            $project = Project::where('id', $id)->first();
+
 
 
         //получить данные из бд по id
@@ -109,15 +126,25 @@ class ProjectController extends Controller
 
         $title = $request['title'];
         $description = $request['description'];
+        $userid = $request['userid'];
+
 
 
         $projectOne = Project::find($project['id']);
         $projectOne->title = $title;
         $projectOne->description = $description;
 
-        $projectOne->save();
+        if (Auth::id() == $projectOne->user_id) {
+            $projectOne->save();
+            return redirect('/project/mylist');
+        } else {
+            $request->session()->flash('edit_not_available', "You can edit only your projects!");
+            return redirect('/project/mylist');
+        }
 
-        return redirect('/project');
+
+
+
     }
 
     /**
@@ -131,4 +158,20 @@ class ProjectController extends Controller
         //нельзя незалогиненному
 
     }
+
+    public function mylist()
+    {
+        //нельзя незалогиненному + отображение только своих проектов
+
+        echo '<pre>';
+        $userid = Auth::id();
+        print_r($userid);
+        echo '</pre>';
+
+        $news = Project::orderBy('id')->where('user_id', $userid)->get();
+        return view('mylist.index', compact('news'));
+
+
+    }
+
 }

@@ -13,9 +13,10 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Project::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
-        'description' => $faker->text('100')
+        'description' => $faker->text('100'),
+        'user_id' => $faker->numberBetween(1, 5)
     ];
 });

@@ -1,8 +1,59 @@
 !!!!!! Here some possible strings !!!!!
 
-1
+wmann@example.net 1
+darien72@example.org 2
+kasandra35@example.org 3
+dchamplin@example.net 4
+mireya80@example.com 5
 
-$table->string('title', '150');
+secret
+--------------------------------------------
+$2y$10$DJ7G6eG6ZQZc0sKJNsaAQeAztBTeRQbLPQbB8CrJnXL7wS
+hash for '123456'
+--------------------------------------------
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateProjectsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', '150');
             $table->text('description');
+            $table->integer('user_id');
+            $table->timestamps();
+        });
+    }
 
-test2
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('projects');
+    }
+}
+---------------------------------------------------
+
+@auth
+        <a href="/project/<?= $value->id ?>/edit">
+            <div>
+                <button type="button" class="btn btn-info">Edit this project</button>
+            </div>
+        </a>
+        @endauth
+
+-------------------------------------------------------
+

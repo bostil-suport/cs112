@@ -18,6 +18,9 @@
 
         </div>
 
+            {{--<label for="exampleInputUserid">Description</label>--}}
+            <input type="hidden" name="userid" value="<?= $userid ?>">
+
         <button type="submit" class="btn btn-primary">Add project</button>
     </form>
 
