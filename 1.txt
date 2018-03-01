@@ -49,4 +49,16 @@ class CreateProjectsTable extends Migration
         @endauth
 
 -------------------------------------------------------
+ $table->string('provider');
+            $table->string('provider_id');
+
+$table->string('email')->nullable()->change();
+            $table->string('password', 60)->nullable()->change();
+
+-------------------------------------------------------
+
+https://termsfeed.com/privacy-policy/74b4154eb0728302c80e99fec17273ea
+
+-------------------------------------------------------
+
 
