@@ -53,9 +53,7 @@
         <!-- убрать потом вообще, тк будет для каждого user отдельное редактирование своих проектов  -->
         @auth
             <a href="/project/<?= $value->id ?>/edit">
-                <div>
-                    <button type="button" class="btn btn-info">Edit this project</button>
-                </div>
+                <button type="button" class="btn btn-info">Edit this project</button>
             </a>
         @endauth
 

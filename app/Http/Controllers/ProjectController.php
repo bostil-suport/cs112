@@ -6,6 +6,7 @@ use App\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class ProjectController extends Controller
@@ -101,16 +102,26 @@ class ProjectController extends Controller
     public function edit($id)
     {
         //нельзя незалогиненному
-//        echo $id;
-//        print_r($project);
-
-            $project = Project::where('id', $id)->first();
-
-
 
         //получить данные из бд по id
+        $project = Project::where('id', $id)->first();
+$id = Auth::id();
+echo $id;
+echo $project->user_id;
 
-        return view('project.edit',  compact('project'));
+        if (Auth::id() == $project->user_id) {
+
+
+            return view('project.edit',  compact('project'));
+        } else {
+           Session::flash('edit_not_available', "You can edit only your projects!");
+            echo $id;
+            echo $project->user_id;
+            return redirect('/project/mylist');
+        }
+
+
+
     }
 
     /**
