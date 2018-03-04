@@ -31,5 +31,3 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 
 Route::resource('/addpass', 'AddpassController')->middleware('auth');
 
-
-

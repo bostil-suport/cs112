@@ -105,4 +105,6 @@ class LoginController extends Controller
             'provider_id' => $user->getId()
         ]);
     }
+
+
 }
