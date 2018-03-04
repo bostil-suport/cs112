@@ -70,8 +70,9 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
-                                <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                                <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter"><i class="fab fa-twitter-square fa-2x"></i> Twitter</a>
+                                <a href="{{ url('/auth/facebook') }}" title="Facebook" class="btn btn-facebook"><i class="fab fa-facebook-square fa-2x"></i>
+                                    Facebook</a>
                             </div>
                         </div>
                     </form>

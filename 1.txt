@@ -60,5 +60,15 @@ $table->string('email')->nullable()->change();
 https://termsfeed.com/privacy-policy/74b4154eb0728302c80e99fec17273ea
 
 -------------------------------------------------------
+ @if ( !(isset(Auth::user()->password)) )
+                                    <!-- показывать только в случае отсутствия пароля (такое можетбыть. только при авторизации через соцсети  -->
+                                    <a class="dropdown-item" href="{{ route('addpass') }}"
+                                       >
+                                        Add Password
+                                    </a>
+                                    <!--  конец addpass  -->
+                                @endif
+
+-----------------------------------------------------------
 
 

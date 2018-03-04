@@ -5,6 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+
+
+                @if (Session::has('success_add_pass'))
+
+                    <div class="alert alert-success">
+                        <strong>Congrats!</strong>
+                        {{ Session::get('success_add_pass') }}
+                    </div>
+
+                @endif
+
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">

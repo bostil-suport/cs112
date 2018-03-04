@@ -53,6 +53,14 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @if ( !(isset(Auth::user()->password)) )
+                                    <!-- показывать только в случае отсутствия пароля (такое можетбыть. только при первичной авторизации через соцсети  -->
+                                        <a class="dropdown-item" href="{{ url('addpass/create') }}"
+                                        >
+                                            Add Password
+                                        </a>
+                                        <!--  конец addpass  -->
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

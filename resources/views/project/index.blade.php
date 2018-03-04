@@ -18,14 +18,14 @@
     @endauth
 
 
-    <?php foreach ($news as $value) : ?>
+    @foreach ($news as $value)
 
     <div class="list">
-        <h2 class="title"><a href="/project/<?= $value->id ?>"> <?= $value->title ?></a></h2>
+        <h2 class="title"><a href="/project/{{ $value->id }}"> {{ $value->title }}</a></h2>
 
-        <p><?= $value->description ?></p>
+        <p>{{ $value->description }}</p>
 
-        <span class="dateNews"><i>Added: <?= $value->created_at ?></i></span>
+        <span class="dateNews"><i>Added: {{ $value->created_at }}</i></span>
 
 
         <!-- если залогиненный, то отображаем Edit this project  -->
@@ -38,6 +38,6 @@
         <hr>
     </div>
 
-    <?php endforeach; ?>
+    @endforeach
 @endsection()
 
