@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
+use App\Provider;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,11 +79,42 @@ class LoginController extends Controller
     public function findOrCreateUser($user, $provider)
     {
 
+//new version
+//        $authUser = Provider::where('provider_id', $user->getId())->first();
+//        if ($authUser) {
+//            return $authUser;
+//        }
+//        $authUserByEmail = User::where('email', $user->getEmail())->first();
+//        if ($authUserByEmail) {
+////            echo '<pre>';
+////            print_r($authUserByEmail);
+////            echo '</pre>';
+//
+//            $authUser->provider = $provider;
+//            $authUser->provider_id = $user->getId();
+//            $authUser->save();
+//
+//            return $authUserByEmail;
+//        }
+//
+//
 
-        $authUser = User::where('provider_id', $user->getId())->first();
-        if ($authUser) {
+
+//        $authUser = User::where('email', $user->getEmail())->first();
+//        if ($authUser) {
+//            return $authUser;
+//        }
+
+
+        //user already exist
+        $authProvider = Provider::where('provider_id', $user->getId())->first();
+
+        if ($authProvider) {
+
+            $authUser = $authProvider->user;
             return $authUser;
         }
+        //user already exist .end.
 
         $authUserByEmail = User::where('email', $user->getEmail())->first();
         if ($authUserByEmail) {
@@ -90,21 +122,68 @@ class LoginController extends Controller
 //            print_r($authUserByEmail);
 //            echo '</pre>';
 
-                $authUserByEmail->provider = $provider;
-                $authUserByEmail->provider_id = $user->getId();
-                $authUserByEmail->save();
+            $authUserByEmail->providers()->create([
+                'provider' =>  $provider,
+                'provider_id' => $user->getId(),
+                'user_id' => $authUserByEmail->id,
+            ]);
 
-                return $authUserByEmail;
-            }
+            return $authUserByEmail;
+        }
 
 
-        return User::create([
+
+
+
+
+        //add new user
+        $newUser = User::create([
             'name'     => $user->getName(),
             'email'    => $user->getEmail(),
-            'provider' => $provider,
-            'provider_id' => $user->getId()
         ]);
+
+        $newUser->providers()->create([
+            'provider' =>  $provider,
+            'provider_id' => $user->getId(),
+            'user_id' => $newUser->id,
+        ]);
+
+        return $newUser;
+      //add new user .end.
+
+
+
+
+
+
+//old version
+//        $authUser = User::where('provider_id', $user->getId())->first();
+//        if ($authUser) {
+//            return $authUser;
+//        }
+//
+//        $authUserByEmail = User::where('email', $user->getEmail())->first();
+//        if ($authUserByEmail) {
+////            echo '<pre>';
+////            print_r($authUserByEmail);
+////            echo '</pre>';
+//
+//                $authUserByEmail->provider = $provider;
+//                $authUserByEmail->provider_id = $user->getId();
+//                $authUserByEmail->save();
+//
+//                return $authUserByEmail;
+//            }
+//
+//
+//        return User::create([
+//            'name'     => $user->getName(),
+//            'email'    => $user->getEmail(),
+//            'provider' => $provider,
+//            'provider_id' => $user->getId()
+//        ]);
+//end old version
+
+
     }
-
-
 }

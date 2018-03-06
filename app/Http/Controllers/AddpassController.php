@@ -29,11 +29,8 @@ class AddpassController extends Controller
      */
     public function create()
     {
-        $userid = Auth::id();
-//        echo '<pre>';
-//        print_r($userid);
-//        echo '</pre>';
-        return view('addpass.create', compact('userid'));
+
+        return view('addpass.create');
     }
 
     /**
@@ -45,14 +42,16 @@ class AddpassController extends Controller
     public function store(Request $request)
     {
         $userOne = User::where('id', Auth::id())->first();
-        echo '<pre>';
-        print_r($userOne);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($userOne);
+//        echo '</pre>';
 
         if ($request->password === $request->password_confirmation) {
-                  $userOne->password = Hash::make($request['password']);
-                  $userOne->save();
-                  $request->session()->flash('success_add_pass', "You add your pass!");
+
+
+            $userOne->password = Hash::make($request['password']);
+            $userOne->save();
+            $request->session()->flash('success_add_pass', "You add your pass!");
 
             return redirect('/home');
 
