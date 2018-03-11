@@ -57,7 +57,7 @@ class AddpassController extends Controller
 
             } else {
                 $request->session()->flash('confirm_pass', "Check your pass");
-                return redirect('addpass/create');
+                return redirect()->back();
             }
 
 

@@ -79,34 +79,8 @@ class LoginController extends Controller
     public function findOrCreateUser($user, $provider)
     {
 
-//new version
-//        $authUser = Provider::where('provider_id', $user->getId())->first();
-//        if ($authUser) {
-//            return $authUser;
-//        }
-//        $authUserByEmail = User::where('email', $user->getEmail())->first();
-//        if ($authUserByEmail) {
-////            echo '<pre>';
-////            print_r($authUserByEmail);
-////            echo '</pre>';
-//
-//            $authUser->provider = $provider;
-//            $authUser->provider_id = $user->getId();
-//            $authUser->save();
-//
-//            return $authUserByEmail;
-//        }
-//
-//
 
-
-//        $authUser = User::where('email', $user->getEmail())->first();
-//        if ($authUser) {
-//            return $authUser;
-//        }
-
-
-        //user already exist
+        //user with current $provider already exist
         $authProvider = Provider::where('provider_id', $user->getId())->first();
 
         if ($authProvider) {
@@ -114,13 +88,12 @@ class LoginController extends Controller
             $authUser = $authProvider->user;
             return $authUser;
         }
-        //user already exist .end.
+        //user with current $provider already exist .end.
 
+
+        //add info from current $provider to table providers
         $authUserByEmail = User::where('email', $user->getEmail())->first();
         if ($authUserByEmail) {
-//            echo '<pre>';
-//            print_r($authUserByEmail);
-//            echo '</pre>';
 
             $authUserByEmail->providers()->create([
                 'provider' =>  $provider,
@@ -131,6 +104,7 @@ class LoginController extends Controller
             return $authUserByEmail;
         }
 
+        //add info from current $provider to table providers .end.
 
 
 
@@ -150,39 +124,6 @@ class LoginController extends Controller
 
         return $newUser;
       //add new user .end.
-
-
-
-
-
-
-//old version
-//        $authUser = User::where('provider_id', $user->getId())->first();
-//        if ($authUser) {
-//            return $authUser;
-//        }
-//
-//        $authUserByEmail = User::where('email', $user->getEmail())->first();
-//        if ($authUserByEmail) {
-////            echo '<pre>';
-////            print_r($authUserByEmail);
-////            echo '</pre>';
-//
-//                $authUserByEmail->provider = $provider;
-//                $authUserByEmail->provider_id = $user->getId();
-//                $authUserByEmail->save();
-//
-//                return $authUserByEmail;
-//            }
-//
-//
-//        return User::create([
-//            'name'     => $user->getName(),
-//            'email'    => $user->getEmail(),
-//            'provider' => $provider,
-//            'provider_id' => $user->getId()
-//        ]);
-//end old version
 
 
     }
