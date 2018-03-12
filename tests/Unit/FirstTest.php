@@ -9,7 +9,6 @@ use App\Project;
 
 class FirstTest extends TestCase
 {
-    public $id = 5;
     /**
      *  Get projects
      *
@@ -17,11 +16,12 @@ class FirstTest extends TestCase
      */
     public function testGetProjects()
     {
-        $this->assertTrue(true);
+//        $this->assertTrue(true);
         $projects = Project::orderBy('id')->get()->all();
         $i = 0;
 
         foreach ($projects as $item) {
+
             $pr[$i]['id'] = $item->id;
             $pr[$i]['title'] = $item->title;
             $pr[$i]['description'] = $item->description;

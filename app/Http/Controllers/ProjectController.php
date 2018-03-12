@@ -28,7 +28,7 @@ class ProjectController extends Controller
         echo '</pre>';
 
 
-        return view('project.index',  compact('news'));
+        return view('project.index', compact('news'));
     }
 
     /**
@@ -49,7 +49,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -79,24 +79,23 @@ class ProjectController extends Controller
         return redirect('/project/mylist');
 
 
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project)
     {
-        return view('project.show',  compact('project'));
+        return view('project.show', compact('project'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -105,21 +104,19 @@ class ProjectController extends Controller
 
         //получить данные из бд по id
         $project = Project::where('id', $id)->first();
-$id = Auth::id();
-echo $id;
-echo $project->user_id;
+        $id = Auth::id();
+        echo $id;
+        echo $project->user_id;
 
         if (Auth::id() == $project->user_id) {
 
-
-            return view('project.edit',  compact('project'));
+            return view('project.edit', compact('project'));
         } else {
-           Session::flash('edit_not_available', "You can edit only your projects!");
+            Session::flash('edit_not_available', "You can edit only your projects!");
             echo $id;
             echo $project->user_id;
             return redirect('/project/mylist');
         }
-
 
 
     }
@@ -127,8 +124,8 @@ echo $project->user_id;
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project)
@@ -138,7 +135,6 @@ echo $project->user_id;
         $title = $request['title'];
         $description = $request['description'];
         $userid = $request['userid'];
-
 
 
         $projectOne = Project::find($project['id']);
@@ -154,14 +150,12 @@ echo $project->user_id;
         }
 
 
-
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Project $project
      * @return \Illuminate\Http\Response
      */
     public function destroy(Project $project)
