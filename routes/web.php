@@ -18,7 +18,6 @@ Route::get('/test', 'TestsController@test');
 
 
 Route::get('/project/mylist', 'ProjectController@mylist')->middleware('auth');
-Route::get('/project/{id}/edit', 'ProjectController@edit')->middleware('auth');
 Route::resource('/project', 'ProjectController');
 Route::get('/project/create', 'ProjectController@create')->middleware('auth');
 
@@ -30,4 +29,7 @@ Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 Route::resource('/addpass', 'AddpassController')->middleware('auth');
+
+Route::get('tags-api', 'TagController@api');
+
 

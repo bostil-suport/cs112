@@ -17,6 +17,6 @@ $factory->define(App\Project::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
         'description' => $faker->text('100'),
-        'user_id' => $faker->numberBetween(1, 5)
+        'user_id' => $faker->numberBetween(1, 4)
     ];
 });
