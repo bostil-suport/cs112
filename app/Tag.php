@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Project;
 
 class Tag extends Model
 {
@@ -25,6 +26,19 @@ class Tag extends Model
 
     public function projects ()
     {
-        return $this->belongsToMany('App/Project');
+        return $this->belongsToMany('App\Project');
     }
+
+    /**
+     * Get a list of project ids associated with the current project.
+     * @return array
+     */
+//    public function getProjectListAttribute()
+//    {
+//        return $this->projects->pluck('project_id');
+//
+//    }
+
+
+
 }

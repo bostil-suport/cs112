@@ -54,7 +54,7 @@
             ajax: {
                 dataType: 'json',
                 url: '{{url('tags-api')}}',
-                delay:250,
+                // delay:250,
                 data: function (params) {
                     return {q: params.term}
                 },

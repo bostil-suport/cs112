@@ -82,7 +82,6 @@ class ProjectController extends Controller
 
         if (Auth::id() == $project->user_id) {
 
-//            $dbTags = Tag::pluck('name', 'id')->toArray();
 
             $dbTags = Tag::all('id', 'name');
             $tags = [];
@@ -90,7 +89,7 @@ class ProjectController extends Controller
                 //I've placed the name as the key in case of additional checking
                 $tags[$t->name] = $t->id;
             }
-            //$tags = $dbTags
+            //$tags was $dbTags
 
             $receivedTags = $request->input('tag_list');
 //            dump($tags, $receivedTags);
@@ -99,7 +98,7 @@ class ProjectController extends Controller
 
             //Create any new tags
             foreach (array_diff($receivedTags, $tags) as $key => $t) {
-                //I'm funny about using ::create() for no reason really
+                // ::create() don't work
                 $nt = new Tag();
                 $nt->name = $t;
                 $nt->save();
@@ -110,60 +109,6 @@ class ProjectController extends Controller
 //            dd($currentProjectTags);
             $project->save();
             $this->syncTags($project, $currentProjectTags);
-
-
-/*
-
-//            foreach ($receivedTags as $receivedTag) {
-//                if (in_array($receivedTag, $tags)) {
-//                    echo 'yes'.$receivedTag.'<br>';
-//
-//                } else {
-//                    echo 'no'.$receivedTag.'<br>';
-//                    $newTag = new Tag();
-//                    $newTag->name = $receivedTag;
-//                    $newTag->save();
-//              }
-//            }
-/*
-//            die();
-
-//            foreach ($tags as $tag_key => $tag_value) {
-////                echo $tag_key . ' => ' . $tag_value . '<br>';
-//                if (is_numeric($tag_value) && Tag::where('id', $tag_value)->get()) {
-//
-//                    echo '<pre>';
-//                    print_r(Tag::where('id', $tag_value)->get()->toArray());
-//                    echo '</pre>';
-//
-//                }
-//                else {
-//echo $tag_value.'<br>';
-//                    $newTag = new Tag();
-//                    $newTag->name = $tag_value;
-//                    $newTag->save();
-////                    Tag::create(['name', $tag_value]); почему не работает????
-////
-//                    echo '<pre>';
-//                    print_r(Tag::where('name', $tag_value)->get()->toArray());
-//                    echo '</pre>';
-//
-//                }
-//            }
-
-*/
-//            die();
-//
-//
-//            $updatedTagList = Tag::pluck('name', 'id')->toArray();
-//
-//            foreach ($updatedTagList as $key => $value) {
-//                if (in_array($value, $receivedTags)) {
-//                    $arrayTags[] = $key;
-//                }
-//            }
-
-
 
             return redirect('/project/mylist');
         } else {
@@ -248,7 +193,7 @@ class ProjectController extends Controller
                 //I've placed the name as the key in case of additional checking
                 $tags[$t->name] = $t->id;
             }
-            //$tags = $dbTags
+            //it was $tags = it became $dbTags
 
             $receivedTags = $request->input('tag_list');
 //            dump($tags, $receivedTags);
@@ -257,7 +202,7 @@ class ProjectController extends Controller
 
             //Create any new tags
             foreach (array_diff($receivedTags, $tags) as $key => $t) {
-                //I'm funny about using ::create() for no reason really
+                // ::create() not working
                 $nt = new Tag();
                 $nt->name = $t;
                 $nt->save();
@@ -265,67 +210,9 @@ class ProjectController extends Controller
                 unset($receivedTags[$key]);
             }
             $currentProjectTags = array_merge($receivedTags, $newTags);
-//            dd($currentProjectTags);
             $project->save();
             $this->syncTags($project, $currentProjectTags);
 
-//            $tags = Tag::pluck('name', 'id')->toArray();
-//            $receivedTags = $request->input('tag_list');
-//            dd($receivedTags, $tags);
-//
-//            foreach ($receivedTags as $receivedTag) {
-//                if (array_key_exists($receivedTag, $tags)) {
-//                    echo 'yes'.$receivedTag.'<br>';
-//
-//                } else {
-//                    echo 'no'.$receivedTag.'<br>';
-//                    $newTag = new Tag();
-//                    $newTag->name = $receivedTag;
-//                    $newTag->save();
-//                    $var = $newTag->id;
-//                }
-//            }
-//            /*
-//            //            die();
-//
-//            //            foreach ($tags as $tag_key => $tag_value) {
-//            ////                echo $tag_key . ' => ' . $tag_value . '<br>';
-//            //                if (is_numeric($tag_value) && Tag::where('id', $tag_value)->get()) {
-//            //
-//            //                    echo '<pre>';
-//            //                    print_r(Tag::where('id', $tag_value)->get()->toArray());
-//            //                    echo '</pre>';
-//            //
-//            //                }
-//            //                else {
-//            //echo $tag_value.'<br>';
-//            //                    $newTag = new Tag();
-//            //                    $newTag->name = $tag_value;
-//            //                    $newTag->save();
-//            ////                    Tag::create(['name', $tag_value]); почему не работает????
-//            ////
-//            //                    echo '<pre>';
-//            //                    print_r(Tag::where('name', $tag_value)->get()->toArray());
-//            //                    echo '</pre>';
-//            //
-//            //                }
-//            //            }
-//
-//            */
-//            die();
-////
-//
-//            $updatedTagList = Tag::pluck('name', 'id')->toArray();
-//
-//            foreach ($updatedTagList as $key => $value) {
-//                if (in_array($value, $receivedTags)) {
-//                    $arrayTags[] = $key;
-//                }
-//            }
-//
-//
-//            $project->save();
-//            $this->syncTags($project, $arrayTags);
 
 
             return redirect('/project/mylist');
@@ -346,13 +233,17 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        //нельзя незалогиненному
+
 
     }
 
+    /**
+     * Return project list for the current user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function mylist()
     {
-        //нельзя незалогиненному + отображение только своих проектов
 
         echo '<pre>';
         $userid = Auth::id();
@@ -374,6 +265,7 @@ class ProjectController extends Controller
     {
         $project->tags()->sync($tags);
     }
+
 
 
 

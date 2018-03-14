@@ -15,6 +15,40 @@
     width: 90%;
 }
 
+.oneTag {
+
+    padding: 5px 10px 4px 20px;
+    color: #434343;
+    border-top-left-radius: 40%;
+    border-bottom-left-radius: 40%;
+    cursor: default;
+    margin: 5px 1px;
+    border-bottom: 1px solid #c3c3c3;
+    background: #f0f0f0;
+    background: -moz-linear-gradient(-45deg, #f0f0f0 0%, #e4e4e4 100%);
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #f0f0f0), color-stop(100%, #e4e4e4));
+    background: -webkit-linear-gradient(-45deg, #f0f0f0 0%, #e4e4e4 100%);
+    background: -o-linear-gradient(-45deg, #f0f0f0 0%, #e4e4e4 100%);
+    background: -ms-linear-gradient(-45deg, #f0f0f0 0%, #e4e4e4 100%);
+    background: linear-gradient(135deg, #f0f0f0 0%, #e4e4e4 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f0f0', endColorstr='#e4e4e4', GradientType=1);
+    border-top: 1px solid #ededed;
+    position: relative;
+    display: inline-block;
+    float: left;
+    border-left: 1px solid #ededed;
+    border-right: 1px solid #f0f0f0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+
+
+
+
+
+
+
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors

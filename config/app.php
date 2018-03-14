@@ -155,6 +155,7 @@ return [
         Laravel\Dusk\DuskServiceProvider::class,
         Conner\Tagging\Providers\TaggingServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
 
         /*

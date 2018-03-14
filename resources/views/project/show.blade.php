@@ -12,18 +12,19 @@
 
         @unless($project->tags->isEmpty())
             <h5>Tags:</h5>
-            <ul>
+            <div class="showTags">
                 @foreach($project->tags as $tag)
 
-                    <li>{{ $tag->name }}</li>
+                    <span class="oneTag">
+                        <a href="{{ route('tags', $tag->name ) }}">{{ $tag->name }}</a>
+
+                    </span>
 
                 @endforeach
+            </div>
 
-
-            </ul>
         @endunless
 
-        <hr>
     </div>
 
 

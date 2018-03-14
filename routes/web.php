@@ -32,4 +32,7 @@ Route::resource('/addpass', 'AddpassController')->middleware('auth');
 
 Route::get('tags-api', 'TagController@api');
 
+Route::get('tag/{tag_name}', 'TagController@tagSearch')->name('tags');
+
+
 
